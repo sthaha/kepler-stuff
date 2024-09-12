@@ -4,5 +4,6 @@
   tasks:
   roles:
     - dev
-    # - docker
-    # - starship
+    - docker
+    - starship
+    - kepler/stress
