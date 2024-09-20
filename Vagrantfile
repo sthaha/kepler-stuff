@@ -1,16 +1,27 @@
 Vagrant.configure("2") do |config|
+
+  # search : https://portal.cloud.hashicorp.com/vagrant/discover?providers=libvirt&query=40-cloud
+  #
   config.vm.box = "fedora/40-cloud-base"
   config.vm.box_version = "40.20240414.0"
+  config.vm.disk :disk, size: "40GB", primary: true
+
+
   # config.vm.network "public_network", ip: "192.168.111.222", dev: "virbr0"
-  #
   # config.vm.network :private_network, ip: "192.168.111.222"
 
+  config.vm.provider :libvirt do |domain|
+    domain.title = "f40"
 
-  config.vm.provider :libvirt do |virt|
-    virt.driver = "kvm"
-    virt.memory = 2048
-    virt.cpus = 2
-    virt.cpuaffinitiy 0 => '0', 1 => '1'
+    domain.driver = "kvm"
+    domain.memory = 2048
+    domain.disk_bus = "virtio"    # Use virtio for better performance
+
+    domain.cpus = 2
+    domain.cpuaffinitiy 0 => '2', 1 => '6'
+    domain.cputopology sockets: '1', cores: '2', threads: '1'
+
+    domain.machine_virtual_size = 40
   end
 
   config.vm.hostname = "vm.kepler.dev"
@@ -25,7 +36,6 @@ Vagrant.configure("2") do |config|
     ansible.playbook = "ansible/playbook.yml"
     ansible.verbose = "vv"
   end
-
 
 end
 

@@ -114,7 +114,9 @@ install() {
 main() {
 
 	info "provision.sh"
-	install net-tools
+	dnf install -y cloud-utils-growpart
+	sudo cfdisk
+	sudo btrfs filesystem resize max /
 
 }
 
