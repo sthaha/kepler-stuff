@@ -5,9 +5,13 @@
     state: present
   with_items:
     - net-tools
+    - netcat
     - git
     - tmux
     - zsh
+    - htop
+    - tree
+    - fzf
     - neovim
     - the_silver_searcher
   become: yes
