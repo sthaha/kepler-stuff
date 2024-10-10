@@ -17,8 +17,9 @@ Vagrant.configure("2") do |config|
     domain.memory = 2048
     domain.disk_bus = "virtio"    # Use virtio for better performance
 
+    domain.cpu_mode = "host-passthrough"
     domain.cpus = 2
-    domain.cpuaffinitiy 0 => '2', 1 => '6'
+    domain.cpuaffinitiy 0 => '4', 1 => '5'
     domain.cputopology sockets: '1', cores: '2', threads: '1'
 
     domain.machine_virtual_size = 40
