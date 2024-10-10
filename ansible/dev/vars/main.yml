@@ -1,2 +1,6 @@
----
-# vars file for dev
+directories_to_copy:
+  - ~/bin
+
+files_to_copy:
+  - ~/.gitconfig
+  - ~/.zshrc

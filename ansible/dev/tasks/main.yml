@@ -1,4 +1,5 @@
 ---
+
 - name: Install basic tools
   dnf:
     name: "{{ item }}"
@@ -49,3 +50,15 @@
   - python@3.10
   environment:
     PATH: "{{ ansible_env.PATH }}:/home/{{ ansible_user }}/.local/share/mise/shims:/home/{{ ansible_user }}/.local/bin"
+
+- name: Change default shell for user
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    shell: /usr/bin/zsh
+  become: yes
+
+- name: Copy files to remote host
+  copy:
+    src: "{{ item }}"
+    dest: "{{ item | basename }}"
+  loop: "{{ files_to_copy }}"
